@@ -7,6 +7,7 @@ from pathlib import Path
 # import glob
 
 # data = []
+social_networks = {}
 # vices = {}
 
 states = []
@@ -25,7 +26,7 @@ for file in files:
 # print(states)
 
 for state in states:
-    social_networks = {}
+    # social_networks = {}
 
     csv_path = Path(home, "Documents", "eleicoes-2022", "eleicoes-2022-data", "redes-sociais", "{0}.csv".format(state))
 
@@ -195,9 +196,16 @@ for state in states:
                 else:
                     social_networks[sq_candidato] = { "site": ds_url }
 
-        json_path = Path(home, "Documents", "eleicoes-2022", "eleicoes-2022-data", "redes-sociais", "{0}.json".format(state))
+        # json_path = Path(home, "Documents", "eleicoes-2022", "eleicoes-2022-data", "redes-sociais", "{0}.json".format(state))
 
-        with open(json_path, 'w') as json_file:
-            json.dump(social_networks, json_file)  
+        # with open(json_path, 'w') as json_file:
+        #     json.dump(social_networks, json_file)  
 
-        print(len(social_networks.keys()))
+        # print(len(social_networks.keys()))
+
+print(len(social_networks.keys()))
+
+json_path = Path(home, "Documents", "eleicoes-2022", "eleicoes-2022-data", "redes-sociais", "{0}.json".format("BRASIL2"))
+
+with open(json_path, 'w') as json_file:
+    json.dump(social_networks, json_file)  
