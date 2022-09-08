@@ -1,6 +1,9 @@
 import csv
 import json
 
+import time
+import math
+
 from pathlib import Path
 
 data = []
@@ -124,13 +127,107 @@ for row in data:
 
 print(len(candidates["PA"]["3"]))
 
+for state in candidates.keys():
+    print(state)
+
+    candidatePages = { "6": {}, "7": {} }
+
+    if candidates[state].get("6"):
+        print("DEPUTADO FEDERAL")
+        print(len(candidates[state]["6"]))
+
+        pages = math.ceil(len(candidates[state]["6"]) / 12)
+        print("Pages: ", pages)
+
+        for page in range(1, pages + 1):
+            start = (page * 12) - 12
+            stop = (page * 12)
+
+            print("Page: ", page, "Start: ", start, "Stop: ", stop - 1)
+
+            candidatePages["6"][str(page)] = candidates[state]["6"][start:stop]
+
+            # print(len(candidates[state]["6"][start:stop]))
+            # print(candidates[state]["6"][start:stop][0]["NM_CANDIDATO"])
+            # print(candidates[state]["6"][start:stop][-1]["NM_CANDIDATO"])
+            # print()
+
+            # if state == "PI":
+            #     print(len(candidates[state]["6"][start:stop]))
+            #     print(candidates[state]["6"][start:stop][0]["NM_CANDIDATO"])
+            #     print(candidates[state]["6"][start:stop][-1]["NM_CANDIDATO"])
+            #     print()
+
+    # print(candidatePages["6"].keys())
+    if list(candidatePages["6"].keys()):
+        # print(len(candidatePages["6"][list(candidatePages["6"].keys())[0]]))
+        # print(len(candidatePages["6"][list(candidatePages["6"].keys())[-1]]))
+        candidates[state]["6"] = candidatePages["6"]
+        # print(candidates[state]["6"].keys())
+        print()
+
+    if candidates[state].get("7"):
+        print("DEPUTADO ESTADUAL")
+        print(len(candidates[state]["7"]))
+
+        pages = math.ceil(len(candidates[state]["7"]) / 12)
+        print("Pages: ", pages)
+
+        for page in range(1, pages + 1):
+            start = (page * 12) - 12
+            stop = (page * 12)
+
+            print("Page: ", page, "Start: ", start, "Stop: ", stop - 1)
+
+            candidatePages["7"][str(page)] = candidates[state]["7"][start:stop]
+
+            # print(len(candidates[state]["7"][start:stop]))
+            # print(candidates[state]["7"][start:stop][0]["NM_CANDIDATO"])
+            # print(candidates[state]["7"][start:stop][-1]["NM_CANDIDATO"])
+            # print()
+
+            # if state == "PI":
+            #     print(len(candidates[state]["6"][start:stop]))
+            #     print(candidates[state]["6"][start:stop][0]["NM_CANDIDATO"])
+            #     print(candidates[state]["6"][start:stop][-1]["NM_CANDIDATO"])
+            #     print()
+
+    # print(candidatePages["7"].keys())
+    if list(candidatePages["7"].keys()):
+        # print(len(candidatePages["7"][list(candidatePages["7"].keys())[0]]))
+        # print(len(candidatePages["7"][list(candidatePages["7"].keys())[-1]]))
+        candidates[state]["7"] = candidatePages["7"]
+        # print(candidates[state]["7"].keys())
+        print()
+
+    # if state == "BR":
+    #     print(len(candidates[state]["1"]))
+    # else:
+    #     if candidates[state].get("3"):
+    #         print(len(candidates[state]["3"]))
+
+    #     if candidates[state].get("5"):
+    #         print(len(candidates[state]["5"]))
+
+    #     if candidates[state].get("6"):
+    #         print(len(candidates[state]["6"]))
+
+    #     if candidates[state].get("7"):
+    #         print(len(candidates[state]["7"]))
+
+    print()
+
+    # time.sleep(5)
+
 json_path3 = Path(home, "Documents", "eleicoes-2022", "eleicoes-2022-data", "data2", "BRASIL.json")
 
 with open(json_path3, 'w') as json_file:
   json.dump(candidates, json_file)
 
 for state in candidates.keys():
-    json_path4 = Path(home, "Documents", "eleicoes-2022", "eleicoes-2022-data", "data2", "{0}2.json".format(state))
+    json_path4 = Path(home, "Documents", "eleicoes-2022", "eleicoes-2022-data", "data2", "{0}.json".format(state))
 
     with open(json_path4, 'w') as json_file:
         json.dump(candidates[state], json_file)
+
+    
