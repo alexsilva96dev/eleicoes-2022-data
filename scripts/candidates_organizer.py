@@ -130,7 +130,7 @@ print(len(candidates["PA"]["3"]))
 for state in candidates.keys():
     print(state)
 
-    candidatePages = { "6": {}, "7": {} }
+    candidatePages = { "6": {}, "7": {}, "8": {} }
 
     if candidates[state].get("6"):
         print("DEPUTADO FEDERAL")
@@ -138,6 +138,8 @@ for state in candidates.keys():
 
         pages = math.ceil(len(candidates[state]["6"]) / 12)
         print("Pages: ", pages)
+
+        candidatePages["6"]["pages"] = { "first": 1, "last": pages }
 
         for page in range(1, pages + 1):
             start = (page * 12) - 12
@@ -163,6 +165,7 @@ for state in candidates.keys():
         # print(len(candidatePages["6"][list(candidatePages["6"].keys())[0]]))
         # print(len(candidatePages["6"][list(candidatePages["6"].keys())[-1]]))
         candidates[state]["6"] = candidatePages["6"]
+        print(candidates[state]["6"]["pages"])
         # print(candidates[state]["6"].keys())
         print()
 
@@ -172,6 +175,8 @@ for state in candidates.keys():
 
         pages = math.ceil(len(candidates[state]["7"]) / 12)
         print("Pages: ", pages)
+
+        candidatePages["7"]["pages"] = { "first": 1, "last": pages }
 
         for page in range(1, pages + 1):
             start = (page * 12) - 12
@@ -197,6 +202,44 @@ for state in candidates.keys():
         # print(len(candidatePages["7"][list(candidatePages["7"].keys())[0]]))
         # print(len(candidatePages["7"][list(candidatePages["7"].keys())[-1]]))
         candidates[state]["7"] = candidatePages["7"]
+        print(candidates[state]["7"]["pages"])
+        # print(candidates[state]["7"].keys())
+        print()
+
+    if candidates[state].get("8"):
+        print("DEPUTADO DISTRITAL")
+        print(len(candidates[state]["8"]))
+
+        pages = math.ceil(len(candidates[state]["8"]) / 12)
+        print("Pages: ", pages)
+
+        candidatePages["8"]["pages"] = { "first": 1, "last": pages }
+
+        for page in range(1, pages + 1):
+            start = (page * 12) - 12
+            stop = (page * 12)
+
+            print("Page: ", page, "Start: ", start, "Stop: ", stop - 1)
+
+            candidatePages["8"][str(page)] = candidates[state]["8"][start:stop]
+
+            # print(len(candidates[state]["7"][start:stop]))
+            # print(candidates[state]["7"][start:stop][0]["NM_CANDIDATO"])
+            # print(candidates[state]["7"][start:stop][-1]["NM_CANDIDATO"])
+            # print()
+
+            # if state == "PI":
+            #     print(len(candidates[state]["6"][start:stop]))
+            #     print(candidates[state]["6"][start:stop][0]["NM_CANDIDATO"])
+            #     print(candidates[state]["6"][start:stop][-1]["NM_CANDIDATO"])
+            #     print()
+
+    # print(candidatePages["7"].keys())
+    if list(candidatePages["8"].keys()):
+        # print(len(candidatePages["7"][list(candidatePages["7"].keys())[0]]))
+        # print(len(candidatePages["7"][list(candidatePages["7"].keys())[-1]]))
+        candidates[state]["8"] = candidatePages["8"]
+        print(candidates[state]["8"]["pages"])
         # print(candidates[state]["7"].keys())
         print()
 
@@ -217,7 +260,7 @@ for state in candidates.keys():
 
     print()
 
-    # time.sleep(5)
+    # time.sleep(7)
 
 json_path3 = Path(home, "Documents", "eleicoes-2022", "eleicoes-2022-data", "data2", "BRASIL.json")
 
